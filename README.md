@@ -18,7 +18,13 @@ Adrian F. Höfflin [srccircumflex]
 is licensed under
 <a href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Creative Commons Attribution 4.0 International<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""></a></p> 
 
+<details>
+
+<summary>
+
 ## Table of Contents
+
+</summary>
 
 * [Abstract](#abstract)
 * [Background](#background)
@@ -59,7 +65,7 @@ is licensed under
   + [Section 3: FINGERPRINT](#section-3-fingerprint)
 * [Security Considerations](#security-considerations)
   + [Correlation between secure obfuscation of the MAC-Address and collision probability in FINGERPRINT](#correlation-between-secure-obfuscation-of-the-mac-address-and-collision-probability-in-fingerprint)
-  + [Duration $d$ of a brute force attack against the FINGERPRINT to find the MAC-Address](#duration-d-of-a-brute-force-attack-against-the-fingerprint-to-find-the-mac-address)
+  + [Duration d of a brute force attack against the FINGERPRINT to find the MAC-Address](#duration-d-of-a-brute-force-attack-against-the-fingerprint-to-find-the-mac-address)
     - [@VERSION 0:](#version-0-1)
     - [@VERSION 1:](#version-1-1)
   + [Collision probabilities](#collision-probabilities)
@@ -69,6 +75,8 @@ is licensed under
 * [Appendix B: Application Sample](#appendix-b-application-sample)
 * [Appendix C: Demo](#appendix-c-demo)
 * [Appendix D: Sample Demo Output](#appendix-d-sample-demo-output)
+
+</details>
 
 ## Abstract
 

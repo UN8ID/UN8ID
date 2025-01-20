@@ -402,7 +402,7 @@ be coded separately without padding and then merged.
   
   `N_COUNT_BITS = 56 - int(r x log2(10) + 1)`
 
-  (Maximum permitted value for the pseudo-granular counter = $2^{N\_COUNT\_BITS}-1$ )
+  (Maximum permitted value for the pseudo-granular counter = $2^{N\ COUNT\ BITS}-1$ )
 
 - If not identical, check the resolution of the system time that can be retrieved from the system.
   

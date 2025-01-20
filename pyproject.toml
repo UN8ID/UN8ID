@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "UN8ID"
+authors = [
+    {name = "Adrian F. Hoefflin", email = "srccircumflex-un8id@outlook.com"},
+]
+description = "A Heavy Globally Unique Identifier (specification and prototype)"
+readme = "README.md"
+requires-python = ">=3.10"
+keywords = [
+    "un8id", "Universal Identifier", "id", "uid"
+]
+license = {text = "CC BY 4.0 Attribution 4.0 International"}
+classifiers = [
+    "Intended Audience :: Developers",
+    "Topic :: Security :: Cryptography",
+]
+dependencies = [
+]
+dynamic = ["version"]
+
+[tool.setuptools.dynamic]
+version = {attr = "UN8ID.__version__"}
+
+[project.urls]
+Homepage = "https://github.com/UN8ID"

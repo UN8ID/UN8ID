@@ -529,7 +529,7 @@ $P(n) = 0.0 \space \text{(cannot be calculated)}$
 #### @VERSION 1:
 $n = 2^{48} \times 2^{64} = 2^{112} = 5 \times 10^{33}$
 
-$P(n) \approx 1.165 \times 10^{-10} \space \text{(0.000,000,011,65 %)}$
+$P(n) \approx 1.165 \times 10^{-10}$ (0.000,000,011,65 %)
 
 
 

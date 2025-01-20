@@ -1,7 +1,7 @@
 <div>Date: Jan. 20, 2025</div>
 <div>Author: Adrian F. Hoefflin [srccircumflex] (srccircumflex-un8id@outlook.com)</div>
 
-[![logo](https://github.com/UN8ID/UN8ID/logo.png)](https://github.com/UN8ID/UN8ID)
+[![logo](https://raw.githubusercontent.com/UN8ID/UN8ID/master/logo.png)](https://github.com/UN8ID/UN8ID)
 
 # UN8ID – A Heavy Globally Unique Identifier
 
@@ -475,7 +475,7 @@ $P(n) \approx 1.165 \times 10^{-10} \space \text{(0.000,000,011,65 %)}$
 
 ## Appendix A: Prototype Implementation
 
-src: [prototype.py](https://github.com/UN8ID/UN8ID/src/UN8ID/prototype.py)
+src: [prototype.py](https://github.com/UN8ID/UN8ID/blob/master/src/UN8ID/prototype.py)
 
 
 ```python
@@ -662,7 +662,7 @@ def UN8ID1(count_granular: int, private_key: int) -> bytearray:
 
 ## Appendix B: Application Sample
 
-src: [prototype.py](https://github.com/UN8ID/UN8ID/src/UN8ID/prototype.py)
+src: [prototype.py](https://github.com/UN8ID/UN8ID/blob/master/src/UN8ID/prototype.py)
 
 ```python
 # #################################################################################################
@@ -723,7 +723,7 @@ class ApplicationSample:
 
 ## Appendix C: Demo
 
-src: [prototype.py](https://github.com/UN8ID/UN8ID/src/UN8ID/prototype.py)
+src: [prototype.py](https://github.com/UN8ID/UN8ID/blob/master/src/UN8ID/prototype.py)
 
 ```python
 # #################################################################################################

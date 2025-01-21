@@ -137,7 +137,7 @@ The algorithm to be used is SHA-256 (RFC6234[^4]).
 
 The input consists of at least 136 bits (17 bytes) made up of the UN8ID version and 64 bits (8 bytes) 
 each of the IEEE 802 MAC-Address[^5] as a 48-bit integer and the current native Thread-ID. In addition, 
-a sequence of undefined length and content can be appended to the input, which may also change for each generation.
+a sequence of undefined content can be appended to the input, which may also change for each generation.
 
 By entering the MAC-Address, a globally unique physical identifier is guaranteed. 
 Entering the native Thread-ID ensures local uniqueness, so UN8IDs also differ if several threads 
@@ -189,9 +189,9 @@ TIME +---------------------------------------------------------------+
      | ...SSE        | GRANULAR                                      |
      +---------------+ - - - - - - - - - - - - - - - - - - - - - - - +
      | ...GRANULAR                                                   |
-META +---------------+---------------+---------------+-------------+-+
+META +---------------+---------------+---------------+-+-+-+---------+
      | RCV1          | N_COUNT_BITS  | RCV2          |U|G|S| VERSION |
-PHYS +---------------+---------------+---------------+-------------+-+
+PHYS +---------------+---------------+---------------+-+-+-+---------+
      | FINGERPRINT                                                   |
      + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
      | ...FINGERPRINT                                                |
@@ -449,7 +449,7 @@ be coded separately without padding and then merged.
 - Format [N_COUNT_BITS](#section-2-component-2-n_count_bits-bit-104-111octet-13-8-bits1-bytes) to 1 byte in big-endian format and write it to the buffer.
 - Write a zero byte to the buffer ([RSV2](#section-2-component-3-rcv2-bit-112-119octet-14-8-bits1-bytes)).
 - Shift `U` 7 positions to the left, shift `G` 6 positions to the left, shift `S` 5 positions to the left and merge with 
-  the `VERSION` number using Bitwise-Oder
+  the `VERSION` number using bitwise OR
   ([U|G|S|VERSION](#section-2-component-3-ugs-version-bit-120-127octet-15-8-bits1-bytes)).
   Format the value in 1 byte in big-endian format and write it to the buffer.
 

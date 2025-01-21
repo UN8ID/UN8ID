@@ -582,22 +582,6 @@ while not _resolution_as_float.is_integer():
 N_COUNT_BITS = MAX_GRANULAR_BITS - int(CLOCK_RESOLUTION * math.log2(10) + 1)  # the largest binary length that a decimal value with x digits can represent
 
 
-# MAC-Address request
-MAC_ID = getmac()
-if MAC_ID is None:
-    # no network card or MAC could not be retrieved
-    MAC_ID = urandom(48)
-    U = 0
-    G = 0
-else:
-    # convert L/G and M/U bits
-    _first_byte = MAC_ID >> 40
-    _node_multicast_bit = _first_byte & 0b00000001
-    _node_local_bit = _first_byte & 0b00000010
-    U = not _node_multicast_bit
-    G = not _node_local_bit
-
-
 # =================================================================================================
 # FACTORY
 
@@ -619,13 +603,42 @@ def TIME(buffer: bytearray, count_granular: int):
 # =================================================================================================
 
 # #################################################################################################
+# SECTION 2: META
+
+def META(buffer: bytearray, ver: int, S: bool):
+    buffer[12] = 0  # RCV1
+    buffer[13] = N_COUNT_BITS
+    buffer[14] = 0  # RCV2
+    buffer[15] = (U << 7) | (G << 6) | (S << 5) | ver
+
+
+# #################################################################################################
 # SECTION 3: PHYS
+
+# =================================================================================================
+# CONSTANTS AND SYSTEM-VARIABLES
+
+# MAC-Address request
+MAC_ID = getmac()
+if MAC_ID is None:
+    # no network card or MAC could not be retrieved
+    MAC_ID = urandom(48)
+    U = 0
+    G = 0
+else:
+    # convert L/G and M/U bits
+    _first_byte         = MAC_ID >> 40
+    _node_multicast_bit = _first_byte & 0b00000001
+    _node_local_bit     = _first_byte & 0b00000010
+    U = not _node_multicast_bit
+    G = not _node_local_bit
+
 
 # =================================================================================================
 # UTILS
 
 # temp. buffer for the SHA-256 input
-def get_fingerprint_buffer(ver: int) -> bytearray:
+def FingerprintBuffer(ver: int) -> bytearray:
     fingerprint_buffer = bytearray(b'\0' * 16)
     fingerprint_buffer[0] = ver
     return fingerprint_buffer
@@ -646,7 +659,7 @@ def PHYSv0(buffer: bytearray, additional_seed: bytes):
     except Exception:
         raise
 
-    fingerprint_buffer = get_fingerprint_buffer(0)
+    fingerprint_buffer = FingerprintBuffer(0)
 
     fingerprint_buffer[1:9]  = MAC_ID    .to_bytes(length=8, byteorder="big")
     fingerprint_buffer[9:17] = thread_id .to_bytes(length=8, byteorder="big")
@@ -661,7 +674,7 @@ def PHYSv0(buffer: bytearray, additional_seed: bytes):
 
 def PHYSv1(buffer: bytearray, private_key: int):
 
-    fingerprint_buffer = get_fingerprint_buffer(1)
+    fingerprint_buffer = FingerprintBuffer(1)
 
     fingerprint_buffer[1:9]  = MAC_ID      .to_bytes(length=8, byteorder="big")
     fingerprint_buffer[9:17] = private_key .to_bytes(length=8, byteorder="big")
@@ -671,27 +684,27 @@ def PHYSv1(buffer: bytearray, private_key: int):
 
 # =================================================================================================
 
+
 # #################################################################################################
 # MAIN FACTORIES
 
 
 # create the main buffer
-# (SECTION 2: META)
-def get_buffer(ver: int, S: bool) -> bytearray:
-    buffer = bytearray(b'\0' * 48)
-    buffer[12] = 0
-    buffer[13] = N_COUNT_BITS
-    buffer[14] = 0
-    buffer[15] = (U << 7) | (G << 6) | (S << 5) | ver
-    return buffer
+def Buffer() -> bytearray:
+    return bytearray(b'\0' * 48)
 
 
 def UN8ID0(count_granular: int, additional_seed: bytes) -> bytearray:
-    buffer = get_buffer(ver=0, S=False)
+    buffer = Buffer()
 
     TIME(
         buffer=buffer,
         count_granular=count_granular
+    )
+    META(
+        buffer=buffer,
+        ver=0,
+        S=False
     )
     PHYSv0(
         buffer=buffer,
@@ -702,11 +715,16 @@ def UN8ID0(count_granular: int, additional_seed: bytes) -> bytearray:
 
 
 def UN8ID1(count_granular: int, private_key: int) -> bytearray:
-    buffer = get_buffer(ver=1, S=False)
+    buffer = Buffer()
 
     TIME(
         buffer=buffer,
         count_granular=count_granular
+    )
+    META(
+        buffer=buffer,
+        ver=0,
+        S=False
     )
     PHYSv1(
         buffer=buffer,
@@ -723,6 +741,7 @@ def UN8ID1(count_granular: int, private_key: int) -> bytearray:
 ## Appendix B: Application Sample
 
 src: [prototype.py](https://github.com/UN8ID/UN8ID/blob/master/src/UN8ID/prototype.py)
+
 
 ```python
 # #################################################################################################
@@ -784,6 +803,7 @@ class ApplicationSample:
 ## Appendix C: Demo
 
 src: [prototype.py](https://github.com/UN8ID/UN8ID/blob/master/src/UN8ID/prototype.py)
+
 
 ```python
 # #################################################################################################
@@ -853,6 +873,13 @@ def demo_main():
 
     un8id = ApplicationSample.UN8ID1()
     demo_template("UN8ID.1 (count, key) (another)", un8id, False)
+
+
+if __name__ == "__main__":
+    demo_main()
+
+
+# #################################################################################################
 ```
 
 

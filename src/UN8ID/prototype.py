@@ -182,7 +182,7 @@ def UN8ID1(count_granular: int, private_key: int) -> bytearray:
     )
     META(
         buffer=buffer,
-        ver=0,
+        ver=1,
         S=False
     )
     PHYSv1(
